@@ -1,0 +1,24 @@
+{
+  "name": "ember-shake-server",
+  "version": "1.0.0",
+  "description": "Shake your phone to share your contacts",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "mocha test/"
+  },
+  "author": "Paul Spieker",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.2",
+    "geolib": "^2.0.22",
+    "socket.io": "^1.7.3"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.3.0",
+    "sinon": "^2.2.0",
+    "sinon-chai": "^2.10.0",
+    "timekeeper": "^1.0.0"
+  }
+}
