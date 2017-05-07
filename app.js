@@ -13,6 +13,7 @@ let shakeList = new ShakeList();
 
 shakeList.on('match', function(a, b) {
   try {
+    console.log('Match found!');
     a.client.emit('match', b.data);
     b.client.emit('match', a.data);
   } catch(e) {
@@ -22,10 +23,12 @@ shakeList.on('match', function(a, b) {
 
 io.sockets.on('connection', function (client) {
   client.on('send', function (data) {
+    console.log('Received shake ...');
     shakeList.push(client, data);
   });
 
   client.on('disconnect', function() {
+    console.log('Client disconnected');
     shakeList.removeClient(client);
   });
 });
