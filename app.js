@@ -22,6 +22,8 @@ shakeList.on('match', function(a, b) {
 });
 
 io.sockets.on('connection', function (client) {
+  console.log('Client connected');
+
   client.on('shake', function (data) {
     console.log('Received shake ...');
     shakeList.push(client, data);
