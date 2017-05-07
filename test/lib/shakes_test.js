@@ -42,6 +42,14 @@ describe('Shares', function() {
         sinon.match.object, sinon.match.object
       );
     });
+
+    it('is not matching the same client', function() {
+      let spy = sinon.spy();
+      shakeList.on('match', spy);
+      shakeList.push('client1', { latitude: 0.0, longitude: 0.0 });
+      shakeList.push('client1', { latitude: 0.0001, longitude: 0.0 });
+      expect(spy).to.not.have.been.called;
+    });
   });
 
   describe('#removeClient', function() {
