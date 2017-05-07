@@ -22,7 +22,7 @@ shakeList.on('match', function(a, b) {
 });
 
 io.sockets.on('connection', function (client) {
-  client.on('send', function (data) {
+  client.on('shake', function (data) {
     console.log('Received shake ...');
     shakeList.push(client, data);
   });
