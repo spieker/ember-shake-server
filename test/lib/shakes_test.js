@@ -50,6 +50,21 @@ describe('Shares', function() {
       shakeList.push('client1', { latitude: 0.0001, longitude: 0.0 });
       expect(spy).to.not.have.been.called;
     });
+
+    it('ignores falsy data', function() {
+      shakeList.push('client1', null);
+      expect(Object.keys(shakeList._list)).to.have.length(0);
+    });
+
+    it('ignores data without longitude', function() {
+      shakeList.push('client1', { latitude: 0 });
+      expect(Object.keys(shakeList._list)).to.have.length(0);
+    });
+
+    it('ignores data without latitude', function() {
+      shakeList.push('client1', { longitude: 0 });
+      expect(Object.keys(shakeList._list)).to.have.length(0);
+    });
   });
 
   describe('#removeClient', function() {
