@@ -1,11 +1,17 @@
-let Shakes = require('./lib/shakes.js');
-var app    = require('express')();
-var server = require('http').createServer(app);
-var io     = require('socket.io')(server);
+const ShakeList = require('./lib/shakes.js');
+const express   = require('express');
+const SocketIO  = require('socket.io');
 
-let shakes = new Shakes();
+const HOST   = process.env.HOST || '0.0.0.0';
+const PORT   = process.env.PORT || 3000;
+const server = express()
+               .listen(PORT, HOST, () => console.log(`Listening on ${HOST}:${PORT}`));
 
-shakes.on('match', function(a, b) {
+const io = SocketIO(server);
+
+let shakeList = new ShakeList();
+
+shakeList.on('match', function(a, b) {
   try {
     a.client.emit('match', b.data);
     b.client.emit('match', a.data);
@@ -16,12 +22,10 @@ shakes.on('match', function(a, b) {
 
 io.sockets.on('connection', function (client) {
   client.on('send', function (data) {
-    shakes.push(client, data);
+    shakeList.push(client, data);
   });
 
   client.on('disconnect', function() {
-    shakes.removeClient(client);
+    shakeList.removeClient(client);
   });
 });
-
-server.listen(3000);
